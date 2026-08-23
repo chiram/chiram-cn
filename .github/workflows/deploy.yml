@@ -30,7 +30,7 @@ jobs:
 
       - name: Setup ossutil
         run: |
-          curl -fsSL https://gosspublic.alicdn.com/ossutil/ossutil-linux-amd64.zip -o ossutil.zip
+          curl -fsSL https://gosspublic.alicdn.com/ossutil/1.7.19/ossutil-v1.7.19-linux-amd64.zip -o ossutil.zip
           unzip -q ossutil.zip
           chmod 755 ./ossutil64
           ./ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }} -c .ossutilconfig
