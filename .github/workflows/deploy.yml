@@ -50,6 +50,15 @@ jobs:
             -H "Content-Type: application/json; charset=utf-8" \
             -d "{\"host\": \"chiram.cn\", \"key\": \"$KEY\", \"keyLocation\": \"https://chiram.cn/$KEY.txt\", \"urlList\": $URLS}"
 
+      # 百度主动推送：每次部署后把 sitemap 里的全部 URL 推送给百度
+      # 需在仓库 Secrets 配置 BAIDU_PUSH_TOKEN（百度搜索资源平台 → 普通收录 → API 提交）
+      - name: Push URLs to Baidu
+        run: |
+          grep -o '<loc>[^<]*</loc>' dist/sitemap-0.xml | sed -e 's/<loc>//g' -e 's/<\/loc>//g' > urls.txt
+          curl -s -H 'Content-Type:text/plain' --data-binary @urls.txt \
+            "https://data.zz.baidu.com/urls?site=https://chiram.cn&token=${{ secrets.BAIDU_PUSH_TOKEN }}"
+          echo
+
       # 可选：部署后刷新 CDN 缓存
       # 如需启用，请先在 GitHub Secrets 里添加 CDN_DOMAIN，并取消下面注释
       # - name: Refresh CDN cache
