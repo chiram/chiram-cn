@@ -33,10 +33,11 @@ jobs:
           curl -fsSL https://gosspublic.alicdn.com/ossutil/1.7.19/ossutil-v1.7.19-linux-amd64.zip -o ossutil.zip
           unzip -q ossutil.zip
           chmod 755 ./ossutil-v1.7.19-linux-amd64/ossutil64
-          ./ossutil-v1.7.19-linux-amd64/ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }} -c .ossutilconfig
+          ./ossutil-v1.7.19-linux-amd64/ossutil64 config -e ${{ vars.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }} -c .ossutilconfig
+          echo "Endpoint: ${{ vars.OSS_ENDPOINT }} | Bucket: ${{ vars.OSS_BUCKET }}"
 
       - name: Sync dist to OSS
-        run: ./ossutil-v1.7.19-linux-amd64/ossutil64 sync ./dist/ oss://${{ secrets.OSS_BUCKET }}/ --delete -f -c .ossutilconfig
+        run: ./ossutil-v1.7.19-linux-amd64/ossutil64 sync ./dist/ oss://${{ vars.OSS_BUCKET }}/ --delete -f -c .ossutilconfig
 
       # 可选：部署后刷新 CDN 缓存
       # 如需启用，请先在 GitHub Secrets 里添加 CDN_DOMAIN，并取消下面注释
