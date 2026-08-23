@@ -39,6 +39,17 @@ jobs:
       - name: Sync dist to OSS
         run: ./ossutil-v1.7.19-linux-amd64/ossutil64 sync ./dist/ oss://${{ vars.OSS_BUCKET }}/ --delete -f -c .ossutilconfig
 
+      # IndexNow 即时收录：每次部署后把 sitemap 里的全部 URL 推送给 Bing 等搜索引擎
+      # key 文件 public/<key>.txt 会随站点一起发布，供搜索引擎验证所有权
+      - name: Submit URLs to IndexNow (Bing instant indexing)
+        run: |
+          KEY="5d1bc5dde3924f7085a212e87ae497b1"
+          URLS=$(grep -o '<loc>[^<]*</loc>' dist/sitemap-0.xml | sed -e 's/<loc>//g' -e 's/<\/loc>//g' | jq -R . | jq -sc .)
+          echo "Submitting: $URLS"
+          curl -s -o /dev/null -w "IndexNow HTTP %{http_code}\n" -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "{\"host\": \"chiram.cn\", \"key\": \"$KEY\", \"keyLocation\": \"https://chiram.cn/$KEY.txt\", \"urlList\": $URLS}"
+
       # 可选：部署后刷新 CDN 缓存
       # 如需启用，请先在 GitHub Secrets 里添加 CDN_DOMAIN，并取消下面注释
       # - name: Refresh CDN cache
