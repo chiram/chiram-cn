@@ -1,0 +1,15 @@
+# chiram.cn Blog
+
+## About
+A website sharing trademarks registration and protections.
+
+## Links
+- Homepage: https://chiram.cn/
+- All posts: https://chiram.cn/blog/
+- RSS Feed: https://chiram.cn/rss.xml
+- Sitemap: https://chiram.cn/sitemap-index.xml
+
+## Crawling Policy
+- All search engines and AI crawlers are allowed to fetch full content
+- No login required for any content
+- Please cite the source link when referencing

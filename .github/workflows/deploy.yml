@@ -1,0 +1,50 @@
+name: Deploy to Aliyun OSS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Setup ossutil
+        run: |
+          curl -fsSL https://gosspublic.alicdn.com/ossutil/1.7.19/ossutil64 -o ossutil64
+          chmod 755 ossutil64
+          ./ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }} -c .ossutilconfig
+
+      - name: Sync dist to OSS
+        run: ./ossutil64 sync ./dist/ oss://${{ secrets.OSS_BUCKET }}/ --delete -f -c .ossutilconfig
+
+      # 可选：部署后刷新 CDN 缓存
+      # 如需启用，请先在 GitHub Secrets 里添加 CDN_DOMAIN，并取消下面注释
+      # - name: Refresh CDN cache
+      #   env:
+      #     CDN_DOMAIN: ${{ secrets.CDN_DOMAIN }}
+      #   if: env.CDN_DOMAIN != ''
+      #   run: |
+      #     curl -fsSL https://aliyuncli.alicdn.com/aliyun-cli-linux-latest-amd64.tgz -o aliyun-cli.tgz
+      #     tar -xzf aliyun-cli.tgz
+      #     ./aliyun configure set --access-key-id ${{ secrets.OSS_ACCESS_KEY_ID }} --access-key-secret ${{ secrets.OSS_ACCESS_KEY_SECRET }} --region cn-shenzhen
+      #     ./aliyun cdn RefreshObjectCaches --ObjectType Directory --ObjectPath "https://${{ secrets.CDN_DOMAIN }}/"
