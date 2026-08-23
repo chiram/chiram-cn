@@ -28,47 +28,209 @@ const schema = [
 		},
 	},
 ];
+
+const services = [
+	{
+		title: '中国商标注册',
+		desc: '商标查询、申请、续展、变更、转让与许可备案，覆盖 45 个类别的注册规划与近似风险排查。',
+	},
+	{
+		title: '国际商标注册',
+		desc: '马德里国际注册与单一国家注册，重点覆盖东南亚、中国香港、中国澳门等出海目的地。',
+	},
+	{
+		title: '商标异议与争议',
+		desc: '商标异议、无效宣告、驳回复审、审查意见答复，为您的品牌权益提供专业争议解决支持。',
+	},
+	{
+		title: '品牌保护咨询',
+		desc: '商标布局策略、类别规划、加盟业务商标评估与长期品牌保护方案设计。',
+	},
+];
+
+const strengths = [
+	{
+		title: '专业专注',
+		desc: '深耕商标与知识产权领域，持续跟进最新法规与审查实践。',
+	},
+	{
+		title: '结构化流程',
+		desc: '从查询分析到提交跟进，每一步清晰透明，进展可查。',
+	},
+	{
+		title: '出海视野',
+		desc: '熟悉东南亚等市场的商标注册制度，助力品牌全球化布局。',
+	},
+];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<SchemaOrg schema={schema} />
+		<style>
+			.hero {
+				padding: 3em 0 2.5em;
+				text-align: center;
+			}
+			.hero .brand {
+				display: inline-block;
+				font-size: 0.95em;
+				letter-spacing: 0.15em;
+				color: var(--accent);
+				border: 1px solid var(--accent);
+				border-radius: 999px;
+				padding: 0.3em 1.2em;
+				margin-bottom: 1.2em;
+			}
+			.hero h1 {
+				font-size: 2.4em;
+				margin: 0 0 0.5em;
+				line-height: 1.3;
+			}
+			.hero p.lead {
+				font-size: 1.1em;
+				color: rgb(var(--gray));
+				max-width: 40em;
+				margin: 0 auto 1.8em;
+			}
+			.cta-row {
+				display: flex;
+				gap: 1em;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+			.btn {
+				display: inline-block;
+				padding: 0.7em 1.8em;
+				border-radius: 6px;
+				text-decoration: none;
+				font-weight: 600;
+			}
+			.btn-primary {
+				background: var(--accent);
+				color: #fff;
+			}
+			.btn-primary:hover {
+				opacity: 0.9;
+				color: #fff;
+			}
+			.btn-outline {
+				border: 1px solid var(--accent);
+				color: var(--accent);
+			}
+			section {
+				padding: 2.5em 0;
+			}
+			section h2 {
+				text-align: center;
+				margin-bottom: 1.5em;
+			}
+			.card-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 1.2em;
+			}
+			.card {
+				border: 1px solid rgba(var(--gray-light), 1);
+				border-radius: 8px;
+				padding: 1.5em;
+				background: #fff;
+			}
+			.card h3 {
+				margin-top: 0;
+				font-size: 1.1em;
+			}
+			.card p {
+				color: rgb(var(--gray));
+				margin-bottom: 0;
+				font-size: 0.95em;
+			}
+			.blog-cta {
+				text-align: center;
+				background: rgba(var(--gray-light), 0.4);
+				border-radius: 8px;
+				padding: 2.5em 1.5em;
+			}
+			.blog-cta h2 {
+				margin-top: 0;
+			}
+			.blog-cta p {
+				color: rgb(var(--gray));
+				max-width: 36em;
+				margin: 0 auto 1.5em;
+			}
+			.contact {
+				text-align: center;
+				padding-bottom: 3em;
+			}
+			.contact p {
+				color: rgb(var(--gray));
+			}
+			@media (max-width: 720px) {
+				.hero h1 {
+					font-size: 1.8em;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="hero">
+				<span class="brand">chiram</span>
+				<h1>商标注册与品牌保护</h1>
+				<p class="lead">
+					chiram 为中国及出海企业提供专业的商标注册、异议争议解决与品牌保护咨询服务，
+					让您的品牌在国内外市场都得到稳妥保护。
+				</p>
+				<div class="cta-row">
+					<a class="btn btn-primary" href="#services">查看服务</a>
+					<a class="btn btn-outline" href="/blog">阅读知识专栏</a>
+				</div>
+			</section>
+
+			<section id="services">
+				<h2>我们的服务</h2>
+				<div class="card-grid">
+					{services.map((s) => (
+						<div class="card">
+							<h3>{s.title}</h3>
+							<p>{s.desc}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section>
+				<h2>为什么选择 chiram</h2>
+				<div class="card-grid">
+					{strengths.map((s) => (
+						<div class="card">
+							<h3>{s.title}</h3>
+							<p>{s.desc}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section>
+				<div class="blog-cta">
+					<h2>商标知识专栏</h2>
+					<p>
+						持续分享商标分类、注册流程、异议案例与出海注册策略等实用内容，
+						帮助您更好地理解和管理品牌资产。
+					</p>
+					<a class="btn btn-primary" href="/blog">进入专栏</a>
+				</div>
+			</section>
+
+			<section class="contact">
+				<h2>联系我们</h2>
+				<p>有商标注册或品牌保护方面的需求，欢迎来信咨询。</p>
+				<a class="btn btn-outline" href="mailto:hello@chiram.cn">hello@chiram.cn</a>
+			</section>
 		</main>
 		<Footer />
 	</body>
